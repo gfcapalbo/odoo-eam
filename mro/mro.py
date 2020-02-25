@@ -175,7 +175,7 @@ class mro_order(osv.osv):
                 if any(states) or len(states) == 0: res = False
         return res
 
-    def action_confirm(self, cr, uid, ids, context=None):        
+    def action_confirm(self, cr, uid, ids, context=None):
         """ Confirms maintenance order.
         @return: True
         """
@@ -247,7 +247,8 @@ class mro_order(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         if vals.get('name','/')=='/':
-            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'mro.order') or '/'
+            vals['name'] = self.pool.get('ir.sequence').next_by_code(
+                cr, uid, 'mro.order') or '/'
         return super(mro_order, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -480,7 +481,8 @@ class mro_request(osv.osv):
 
     def create(self, cr, uid, vals, context=None):
         if vals.get('name','/')=='/':
-            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'mro.request') or '/'
+            vals['name'] = self.pool.get('ir.sequence').next_by_code(
+                cr, uid, 'mro.request') or '/'
         return super(mro_request, self).create(cr, uid, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
